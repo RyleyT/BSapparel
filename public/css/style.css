@@ -1,0 +1,20 @@
+h1 {
+    color: orange;
+    text-align: center;
+}
+
+title {
+    color: blue;
+    padding: 5px;
+    text-align: center;
+}
+
+#box-one {
+    bacground-color: gray;
+    padding: 10px;
+}
+
+#box-two {
+    background-color: yellow;
+    padding: 15px;
+}

@@ -1,33 +1,56 @@
 const port = 3000,
 http = require("http"),
 httpStatus = require("http-status-codes"),
+router = require("./router")
+fs = require("fs");
 
-app = http.createServer();
+plainTextContentType = {
+    "Content-Type": "text/plain"
+},
+htmlContentType = {
+    "Content-Type": "text/html"
+},
+cssContentType = {
+    "Content-Type": "text/css"
+},
+jsContentType = {
+    "Content-Type": "text/javascript"
+}
+jpgContentType = {
+    "Content-Type": "image/jpg"
+},
+pngContentType = {
+    "Content-Type": "image/png"
+},
 
-const getJSONString = obj => {
-    return JSON.stringify(obj, null, 2);
-};
 
-const routeResponseMap = { //Define mapping of routes with responses
-    "/info": "<h1>Info Page</h1>",
-    "/Contact": "<h1>Contact Us</h1>",
-    "/about": "<h1>Learn More About Us</h1>",
-    "/hello": "<h1>Hello Universe!</h1>",
-    "/error": "<h1>Sorry this page does not exist.</h1>",
-    "/item": "<h1>Here is your Item</h1>"
-};
-
-app.on("request", (req,res) => { //Listen for requests   
-    res.writeHead(200, {
-        "Content_Type": "text/html"
+customReadFile = (file, res) => { //A custom read file to reduce repetition
+    fs.readFile(`./${file}`, (errors, data) => {
+        if(errors) {
+            console.log("Error reading the file...");
+        }
+        res.end(data);
     });
+};
 
-    if(routeResponseMap[req.url]) {
-        res.end(routeResponseMap[req.url]);
-    } else {
-        res.end("<h1>Welcome!</h1>")
-    } 
+router.get("/", (req, res) => {
+    res.writeHead(httpStatus.OK, htmlContentType);
+    customReadFile("views/index.html", res);
 });
 
-app.listen(port);
+router.get("/index.html", (req, res) => {
+    res.writeHead(httpStatus.OK, htmlContentType);
+    customReadFile("views/index.html", res);
+});
+
+router.get("/sampleImage.jpg", (req, res) => {
+    res.writeHead(httpStatus.OK, )
+})
+
+router.post("/", (req, res) => {
+    res.writeHead(httpStatus.OK, plainTextContentType);
+    res.end("POSTED");
+});
+
+http.createServer(router.handle).listen(port);
 console.log(`The server has started and is listening on port number: ${port}`);
