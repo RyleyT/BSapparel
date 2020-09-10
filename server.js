@@ -2,18 +2,6 @@ const express = require('express');
 const path = require('path');
 // const router = require("./router");
 
-<<<<<<< HEAD
-// Adds information to the about us page.
-router.get("/info", (req,res) => {
-    res.writeHead(httpStatus.OK, htmlContentType);
-    customReadFile("views/info.html",res);
-});
-
-router.get("/index.html", (req, res) => {
-    res.writeHead(httpStatus.OK, htmlContentType);
-    customReadFile("views/index.html", res);
-});
-=======
 var app = express();
 
 app.set('views', (path.join(__dirname, 'views')));
@@ -23,7 +11,6 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use(router);
->>>>>>> 879c037cbe70af81ad33cdcd9c818d14657c0993
 
 // Home page
 app.get('/', function (req, res) {
