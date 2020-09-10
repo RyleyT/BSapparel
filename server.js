@@ -38,6 +38,12 @@ router.get("/", (req, res) => {
     customReadFile("views/index.html", res);
 });
 
+// Adds information to the about us page.
+router.get("/info", (req,res) => {
+    res.writeHead(httpStatus.OK, htmlContentType);
+    customReadFile("views/info.html",res);
+});
+
 router.get("/index.html", (req, res) => {
     res.writeHead(httpStatus.OK, htmlContentType);
     customReadFile("views/index.html", res);
