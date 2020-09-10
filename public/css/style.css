@@ -3,14 +3,14 @@ h1 {
     text-align: center;
 }
 
-title {
+#title {
     color: blue;
     padding: 5px;
     text-align: center;
 }
 
 #box-one {
-    bacground-color: gray;
+    background-color: gray;
     padding: 10px;
 }
 
