@@ -1,26 +1,28 @@
 const express = require('express');
 const path = require('path');
-// const router = require("./router");
+
+var router = require("./router");
 
 var app = express();
 
 app.set('views', (path.join(__dirname, 'views')));
 app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
+app.engine('.html', require('ejs').renderFile);
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(router);
+app.use('/', router);
+app.use('/info', router);
 
-// Home page
-app.get('/', function (req, res) {
-    res.render('index.html');
-})
+// // Home page
+// app.get('/', function (req, res) {
+//     res.render('index.html');
+// })
 
-// Info page
-app.get('/info', function (req, res) {
-    res.render('info.html');
-})
+// // Info page
+// app.get('/info', function (req, res) {
+//     res.render('info.html');
+// })
 
 app.listen(app.get('port'), function () {
     console.log('Express started on http://localhost:' +
