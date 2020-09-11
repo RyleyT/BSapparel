@@ -14,16 +14,6 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use('/', router);
 app.use('/info', router);
 
-// // Home page
-// app.get('/', function (req, res) {
-//     res.render('index.html');
-// })
-
-// // Info page
-// app.get('/info', function (req, res) {
-//     res.render('info.html');
-// })
-
 app.listen(app.get('port'), function () {
     console.log('Express started on http://localhost:' +
         app.get('port') + '; press Ctrl-C to terminate.');
