@@ -4,8 +4,7 @@
   "description": "An api gateway service",
   "main": "api.js",
   "scripts": {
-    "test": "nodemon api.js",
-    "start": "node api.js"
+    "test": "nodemon api.js"
   },
   "author": "Luke Williams",
   "license": "ISC",

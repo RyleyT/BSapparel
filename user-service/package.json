@@ -4,7 +4,6 @@
   "description": "A user service for registering and logging in users to a mongodb database",
   "main": "userService.js",
   "scripts": {
-    "start": "nodemon userService,js",
     "test": "nodemon userService.js"
   },
   "repository": {

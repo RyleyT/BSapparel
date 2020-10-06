@@ -1,14 +1,14 @@
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 5010;
+const PORT = process.env.PORT || 4000;
 const mongoose = require("mongoose");
 const APIgateway = require('../api-gateway');
 
 // Setting up proxy server to listen for api-gateway.
 var http = require('http');
 var proxy = require('http-proxy');
-proxyServer = proxy.createProxyServer({target:'http://127.0.0.1:5010'});
-proxyServer.listen(5010);
+proxyServer = proxy.createProxyServer({target:'http://127.0.0.1:4000'});
+proxyServer.listen(4000);
 
 server = http.createServer(function (req, res) {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
