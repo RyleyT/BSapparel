@@ -4,7 +4,7 @@ const express = require('express');
     mongoose = require('mongoose'),
     errorHandler = require('./controllers/errorHandler'),
     router = require('./router'),
-    APIgateway = require('../api-gateway');
+   // APIgateway = require('../api-gateway');
 
     //DB connection
     mongoose.connect("mongodb+srv://ryleyt:1qaz@cluster0.h0wyn.mongodb.net/<dbname>?retryWrites=true&w=majority", {useNewUrlParser: true});

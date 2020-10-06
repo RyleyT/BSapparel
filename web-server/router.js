@@ -14,8 +14,8 @@ router.get('/register', function(req,res) {
   res.render('register.html', {title: 'Register'})
 })
 
-router.post('/register', function(req, res) {
-  
+router.post('/register', function(req, res) { 
+  //POST REQUEST FOR REGISTRATION GOES HERE
 })
 
 router.get('/login',function(req,res){
