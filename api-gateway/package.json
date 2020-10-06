@@ -1,0 +1,20 @@
+{
+  "name": "api-gateway",
+  "version": "1.0.0",
+  "description": "An api gateway service",
+  "main": "api.js",
+  "scripts": {
+    "test": "nodemon api.js",
+    "start": "node api.js"
+  },
+  "author": "Luke Williams",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.6.2",
+    "http-proxy": "^1.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

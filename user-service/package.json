@@ -1,0 +1,29 @@
+{
+  "name": "user-service",
+  "version": "1.0.0",
+  "description": "A user service for registering and logging in users to a mongodb database",
+  "main": "userService.js",
+  "scripts": {
+    "start": "nodemon userService,js",
+    "test": "nodemon userService.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyleyT/Group8.git"
+  },
+  "author": "Luke Williams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyleyT/Group8/issues"
+  },
+  "homepage": "https://github.com/RyleyT/Group8#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.6.2",
+    "http-proxy": "^1.18.1",
+    "mongoose": "^5.10.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

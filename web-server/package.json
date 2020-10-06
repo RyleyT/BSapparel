@@ -1,0 +1,30 @@
+{
+  "name": "group8",
+  "version": "1.0.0",
+  "description": "This is a basic server app designed to serve products back to a user using Node.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyleyT/Group8.git"
+  },
+  "author": "Ryley Tierney, Noah OConnor, Luke Williams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyleyT/Group8/issues"
+  },
+  "homepage": "https://github.com/RyleyT/Group8#readme",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-http-proxy": "^1.6.2",
+    "http": "0.0.1-security",
+    "http-status-codes": "^2.1.4",
+    "mongoose": "^5.10.7",
+    "nodemon": "^2.0.4"
+  }
+}
