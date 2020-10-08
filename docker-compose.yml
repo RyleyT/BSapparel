@@ -1,0 +1,21 @@
+version : '3'
+
+services:
+    lb:
+        image: haproxy
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./haproxy:/usr/local/sbin/haproxy
+    web-server:
+        image: nodeapp
+        environment:
+            - APPID=1111
+    api-gateway:
+        image: nodeapp
+        environment:
+            - APPID=2222
+    user-service:
+        image: nodeapp
+        environment:
+            - APPID=3333

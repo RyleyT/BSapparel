@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var dbController = require('./controllers/dbController');
+//const appid = process.env.APPID; 
 
 router.get('/', function (req, res) {
+  // res.send(`appid: ${appid} hope page: says hello!`)
   res.render('index.html', {title: 'BSApparel Home'});
 })
 
