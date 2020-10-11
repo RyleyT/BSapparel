@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const userServiceUrl = "https://localhost:5000";
+const userServiceUrl = "https://localhost:5000/user/";
+app.set('port', process.env.PORT || 4000);
 
 // Authentication
 app.use((req, res, next) => {
@@ -9,9 +10,8 @@ app.use((req, res, next) => {
 });
 
 // User login request
-app.get('/users/:userId', (req, res, next) => {
+app.get('/user/:userId', (req, res) => {
   res.json(https.get(userServuceUrl + req.params.userId, (req, res) => {
-    console.log(res.json());
   }).then((user) => {
     return user.json();
   }).catch((error => {
@@ -20,6 +20,16 @@ app.get('/users/:userId', (req, res, next) => {
 });
 
 // Proxy registration request
-app.post('/users', (req, res, next) => {
-    userServiceProxy(req, res, next);
+app.post('/user', (req, res) => {
+  res.json(https.post(userServuceUrl, (req, res) => {
+  }).then((user) => {
+    return user.json();
+  }).catch((error => {
+    console.log("Error: " + error.message);
+  })));
+});
+
+//Start application
+app.listen(app.get('port'), () =>  {
+  console.log(`Express started on http://localhost: ${app.get('port')} press Ctrl-C to terminate.`);
 });

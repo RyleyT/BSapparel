@@ -3,19 +3,42 @@ version : '3'
 services:
     lb:
         image: haproxy
+        container_name: haproxy
         ports:
             - "8080:8080"
         volumes:
-            - ./haproxy:/usr/local/sbin/haproxy
+            - "./haproxy:/usr/local/sbin/haproxy"
     web-server:
-        image: nodeapp
+        build: ./web-server
+        image: web-server_nodeapp
+        container_name: web-server
+        ports:
+            - "3000:3000"
+        volumes:
+            - "./web-server/:/code/web-server"
+        links: 
+            - "api-gateway:api-gateway"
         environment:
             - APPID=1111
     api-gateway:
-        image: nodeapp
+        build: ./api-gateway
+        image: api-gateway_nodeapp
+        container_name: api-gateway
+        ports:
+            - "4000:4000"
+        volumes: 
+            - "./api-gateway/:/code/api-gateway"
+        links: 
+            - "user-service:user-service"
         environment:
             - APPID=2222
     user-service:
-        image: nodeapp
+        build: ./user-service
+        image: user-service_nodeapp
+        container_name: user-service
+        ports:
+            - "5000:5000"
+        volumes: 
+            - "./user-service/:/code/user-service"
         environment:
             - APPID=3333
