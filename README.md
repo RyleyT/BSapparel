@@ -11,3 +11,4 @@ use "npm start" to make the server go live.
 then go to localhost:3000 in your preferred browser.
 
 Milestone 1 video: https://youtu.be/48jePtWpLdE
+Milestone 2 video: https://www.youtube.com/watch?v=-rylMTnB7fU&feature=youtu.be
