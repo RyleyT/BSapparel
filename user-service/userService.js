@@ -16,7 +16,7 @@ server = http.createServer(function (req, res) {
 
 const User = require("./models/user");
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Userdb", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryleyt:1qaz@cluster0.h0wyn.mongodb.net/<dbname>?retryWrites=true&w=majority", {
     useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -26,7 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/user", (req, res) => {
-    res.send("API-GATEWAY SUCCESSFUL. USER SERVICE REACHED.");
+    User.find()
+        .then((Users) => {
+            res.json(Users);
+        })
+        .catch((err) => {
+            res.json(err.message);
+        });
 });
 
 app.get("/user/:userId", (req, res, next) => {
