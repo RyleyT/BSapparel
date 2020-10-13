@@ -11,7 +11,7 @@ app.use((req, res, next) => {
 
 // User login request
 app.get('/user/:userId', (req, res) => {
-  res.json(https.get(userServuceUrl + req.params.userId, (req, res) => {
+  res.json(https.get(userServiceUrl + req.params.userId, (req, res) => {
   }).then((user) => {
     return user.json();
   }).catch((error => {
@@ -21,7 +21,7 @@ app.get('/user/:userId', (req, res) => {
 
 // Proxy registration request
 app.post('/user', (req, res) => {
-  res.json(https.post(userServuceUrl, (req, res) => {
+  res.json(https.post(userServiceUrl, (req, res) => {
   }).then((user) => {
     return user.json();
   }).catch((error => {

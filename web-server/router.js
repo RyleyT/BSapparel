@@ -17,6 +17,9 @@ router.get('/register', function(req,res) {
 
 router.post('/register', function(req, res) { 
   //POST REQUEST FOR REGISTRATION GOES HERE
+  request({
+    uri: 'http://127.0.0.1:4000/'
+  }).pipe(res);
 })
 
 router.get('/login',function(req,res){
