@@ -1,9 +1,6 @@
 const express = require('express');
 const app = express();
-const userServiceUrl = "https://localhost:5000/api/user/";
-app.set('port', process.env.PORT || 4000);
-
-//
+const PORT = process.env.PORT || 4000;
 
 // Authentication
 app.use((req, res, next) => {
@@ -11,15 +8,18 @@ app.use((req, res, next) => {
   next();
 });
 
-// display the current request to the console
+// display the current request to the console and time
 app.use( (req, res, next) => {
   console.log("Request made: " + req.path);
   next();
 })
 
+var userRoutes = require('./routes/userRoutes');
+var itemRoutes = require('./routes/itemRoutes');
+
 // Routers for users and items
-app.use('/api/user', userRoutes);
-app.use('/api/item', itemRoutes);
+app.use(userRoutes);
+app.use(itemRoutes);
 
 // User login request
 app.get('/user/:userId', (req, res) => {
@@ -42,6 +42,6 @@ app.post('/user', (req, res) => {
 });
 
 //Start application
-app.listen(app.get('port'), () =>  {
-  console.log(`Express started on http://localhost: ${app.get('port')} press Ctrl-C to terminate.`);
+app.listen(PORT, () =>  {
+  console.log(`API-Gateway listening on port ${PORT}`);
 });

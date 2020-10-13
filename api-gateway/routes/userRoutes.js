@@ -1,22 +1,33 @@
+const { response } = require('express');
 var express = require('express');
-var userRouter = express.Router();
+var userRoutes = express.Router();
+
+const apiAdapter = require('../apiAdapter');
+const userServiceUrl = "https://localhost:5000";
+const userService = apiAdapter(userServiceUrl);
 
 // define the user route
-userRouter.get('/', (req, res) => {
-  // Make user-service request to get all users
-
+userRoutes.get('/api/user', (req, res) => {
+    // make request to user-service to get all users
+    console.log("Requested: " + req.path);
+    // userService.get(req.path)
+    //     .then(response => {
+    //         res.json(resp.data);
+    //     }).catch(error => {
+    //         res.json(error);
+    //     });
 });
 
 // define the userId route
-userRouter.get('/:userId', (req, res) => {
-  // Make user-service request to get user by userId
+userRoutes.get('/api/user/:userId', (req, res) => {
+    // Make user-service request to get user by userId
 
 });
 
 // define the user registration
-userRouter.post('/', (req, res) => {
-  // Make user-service request to post new user info
+userRoutes.post('/api/user', (req, res) => {
+    // Make user-service request to post new user info
 
 });
 
-module.exports = userRouter
+module.exports = userRoutes
