@@ -21,26 +21,6 @@ var itemRoutes = require('./routes/itemRoutes');
 app.use(userRoutes);
 app.use(itemRoutes);
 
-// User login request
-app.get('/user/:userId', (req, res) => {
-  res.json(https.get(userServiceUrl + req.params.userId, (req, res) => {
-  }).then((user) => {
-    return user.json();
-  }).catch((error => {
-    console.log("Error: " + error.message);
-  })));
-});
-
-// Proxy registration request
-app.post('/user', (req, res) => {
-  res.json(https.post(userServiceUrl, (req, res) => {
-  }).then((user) => {
-    return user.json();
-  }).catch((error => {
-    console.log("Error: " + error.message);
-  })));
-});
-
 //Start application
 app.listen(PORT, () =>  {
   console.log(`API-Gateway listening on port ${PORT}`);
