@@ -1,13 +1,25 @@
 const express = require('express');
 const app = express();
-const userServiceUrl = "https://localhost:5000/user/";
+const userServiceUrl = "https://localhost:5000/api/user/";
 app.set('port', process.env.PORT || 4000);
+
+//
 
 // Authentication
 app.use((req, res, next) => {
   // TODO: my authentication logic
   next();
 });
+
+// display the current request to the console
+app.use( (req, res, next) => {
+  console.log("Request made: " + req.path);
+  next();
+})
+
+// Routers for users and items
+app.use('/api/user', userRoutes);
+app.use('/api/item', itemRoutes);
 
 // User login request
 app.get('/user/:userId', (req, res) => {
