@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 const PORT = process.env.PORT || 4000;
+
+// log requests via morgan
+app.use(morgan('combined'));
 
 // Authentication
 app.use((req, res, next) => {
