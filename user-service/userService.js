@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
-const APIgateway = require('../api-gateway/api');
 
 // Setting up proxy server to listen for api-gateway.
 var http = require('http');
@@ -25,7 +24,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryleyt:1qaz@cluster0.
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/user", (req, res) => {
+app.get("/api/user", (req, res) => {
     User.find()
         .then((Users) => {
             res.json(Users);
@@ -35,7 +34,7 @@ app.get("/user", (req, res) => {
         });
 });
 
-app.get("/user/:userId", (req, res, next) => {
+app.get("/api/user/:userId", (req, res, next) => {
     User.findById(req.params.userId)
         .then((User) => {
             res.json(User);
@@ -45,7 +44,7 @@ app.get("/user/:userId", (req, res, next) => {
         });
 });
 
-app.post("/user", (req, res, next) => {
+app.post("/api/user", (req, res, next) => {
     User.create(req.body)
         .then((user) => {
             res.json(user);
@@ -56,5 +55,5 @@ app.post("/user", (req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`);
+    console.log(`User-service listening on port ${PORT}`);
 });

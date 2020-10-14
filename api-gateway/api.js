@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
-const userServiceUrl = "https://localhost:5000/user/";
-app.set('port', process.env.PORT || 4000);
+const morgan = require('morgan');
+const PORT = process.env.PORT || 4000;
+
+// log requests via morgan
+app.use(morgan('combined'));
 
 // Authentication
 app.use((req, res, next) => {
@@ -9,27 +12,20 @@ app.use((req, res, next) => {
   next();
 });
 
-// User login request
-app.get('/user/:userId', (req, res) => {
-  res.json(https.get(userServiceUrl + req.params.userId, (req, res) => {
-  }).then((user) => {
-    return user.json();
-  }).catch((error => {
-    console.log("Error: " + error.message);
-  })));
-});
+// display the current request to the console and time
+app.use( (req, res, next) => {
+  console.log("Request made: " + req.path);
+  next();
+})
 
-// Proxy registration request
-app.post('/user', (req, res) => {
-  res.json(https.post(userServiceUrl, (req, res) => {
-  }).then((user) => {
-    return user.json();
-  }).catch((error => {
-    console.log("Error: " + error.message);
-  })));
-});
+var userRoutes = require('./routes/userRoutes');
+var itemRoutes = require('./routes/itemRoutes');
+
+// Routers for users and items
+app.use(userRoutes);
+app.use(itemRoutes);
 
 //Start application
-app.listen(app.get('port'), () =>  {
-  console.log(`Express started on http://localhost: ${app.get('port')} press Ctrl-C to terminate.`);
+app.listen(PORT, () =>  {
+  console.log(`API-Gateway listening on port ${PORT}`);
 });
