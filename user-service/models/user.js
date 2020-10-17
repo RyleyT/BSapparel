@@ -20,6 +20,11 @@ const UserSchema = new Schema({
         required: true,
         trim: true,
         type: String
+    },
+    address: {
+        required: true,
+        trim: true,
+        type: String
     }
 });
 
