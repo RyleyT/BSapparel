@@ -9,9 +9,8 @@ const userService = apiAdapter(userServiceUrl);
 // define the user route
 userRoutes.get('/api/user', (req, res) => {
     // make request to user-service to get all users
-    console.log("Requested: " + req.path);
     userService.get(req.path)
-        .then(response => {
+        .then(resp => {
             res.json(resp.data);
         }).catch(error => {
             res.json(error);
@@ -28,7 +27,7 @@ userRoutes.get('/api/user/:userId', (req, res) => {
 userRoutes.post('/api/user', (req, res) => {
     // Make user-service request to post new user info
     userService.post(req.path, req.body)
-        .then(response => {
+        .then(resp => {
             res.json(resp.data);
         }).catch(error => {
             res.json(error);

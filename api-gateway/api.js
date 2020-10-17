@@ -12,7 +12,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// display the current request to the console and time
+// display the current request to the console
 app.use( (req, res, next) => {
   console.log("Request made: " + req.path);
   next();
