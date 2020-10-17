@@ -1,0 +1,28 @@
+{
+  "name": "inventory-service",
+  "version": "1.0.0",
+  "description": "service for retrieving information about items in our inventory",
+  "main": "itemService.js",
+  "scripts": {
+    "start": "nodemon itemService.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyleyT/Group8.git"
+  },
+  "author": "Noah O'Connor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyleyT/Group8/issues"
+  },
+  "homepage": "https://github.com/RyleyT/Group8#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.6.2",
+    "http-proxy": "^1.18.1",
+    "mongoose": "^5.10.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
