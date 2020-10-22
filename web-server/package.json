@@ -4,7 +4,7 @@
   "description": "This is a basic server app designed to serve products back to a user using Node.js",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "((cd ../api-gateway && npm run start) & (cd ../user-service && npm run start)) & npm run start",
     "start": "nodemon server.js"
   },
   "repository": {

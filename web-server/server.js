@@ -46,7 +46,7 @@ app.use(errorHandler.respondInternalError);
 
 //Start application
 app.listen(app.get('port'), () =>  {
-    console.log(`Express started on http://localhost: ${app.get('port')} press Ctrl-C to terminate.`);
+    console.log(`Web-server started on http://localhost: ${app.get('port')} press Ctrl-C to terminate.`);
 });
 
 

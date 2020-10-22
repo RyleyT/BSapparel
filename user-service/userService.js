@@ -7,10 +7,10 @@ const mongoose = require("mongoose");
 var http = require('http');
 
 server = http.createServer(function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.write('Proxy Request was Successful!' + '\n' + JSON.stringify(req.headers, true, 2));
-  console.log('Proxy Request was Successful!' + '\n' + JSON.stringify(req.headers, true, 2));
-  res.end();
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.write('Proxy Request was Successful!' + '\n' + JSON.stringify(req.headers, true, 2));
+    console.log('Proxy Request was Successful!' + '\n' + JSON.stringify(req.headers, true, 2));
+    res.end();
 });
 
 const User = require("./models/user");
@@ -34,22 +34,44 @@ app.get("/api/user", (req, res) => {
         });
 });
 
-app.get("/api/user/:userId", (req, res, next) => {
+app.get("/api/user/:userId", (req, res) => {
     User.findById(req.params.userId)
-        .then((User) => {
-            res.json(User);
+        .then(user => {
+            res.json(user);
         })
-        .catch((err) => {
+        .catch(err => {
             res.json(err.message);
         });
 });
 
-app.post("/api/user", (req, res, next) => {
+app.post("/api/user", (req, res) => {
     User.create(req.body)
-        .then((user) => {
+        .then(user => {
             res.json(user);
         })
-        .catch((err) => {
+        .catch(err => {
+            res.json(err.message);
+        });
+});
+
+app.put("/api/user/:userId", (req, res) => {
+    updateUser = User.findById(req.params.userId);
+    User.update(updateUser)
+        .then(user => {
+            res.json(user)
+        })
+        .catch(err => {
+            res.json(err);
+        });
+
+});
+
+app.delete("/api/user/:userId", (req, res) => {
+    User.findByIdAndDelete(req.params.userId)
+        .then(user => {
+            res.json(user);
+        })
+        .catch(err => {
             res.json(err.message);
         });
 });
