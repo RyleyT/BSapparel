@@ -1,9 +1,8 @@
-var express = require('express');
-var router = express.Router();
-//const appid = process.env.APPID; 
+const express = require('express'),
+  router = express.Router(),
+  userController = require('./controllers/userController');
 
 router.get('/', function (req, res) {
-  // res.send(`appid: ${appid} hope page: says hello!`)
   res.render('index.html', {title: 'BSApparel Home'});
 })
 
@@ -16,10 +15,10 @@ router.get('/register', function(req,res) {
 })
 
 router.post('/register', function(req, res) { 
-  //POST REQUEST FOR REGISTRATION GOES HERE
-  request({
-    uri: 'http://127.0.0.1:4000/'
-  }).pipe(res);
+  // request({ 
+  //   uri: 'http://127.0.0.1:4000/api/user'
+  // }).pipe(res);
+  console.log("Post request sent to register page");
 })
 
 router.get('/login',function(req,res){

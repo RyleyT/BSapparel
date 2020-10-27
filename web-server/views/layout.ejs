@@ -1,5 +1,5 @@
 <body>
-    
+
     <div id="nav">
         <%- include ('partials/navbar') %>
     </div>
@@ -10,5 +10,15 @@
 
     <div id="footer">
         <%- include ('partials/footer') %>
+    </div>
+
+    <div class="flashes">
+        <% if (flashMessages) { %>
+        <% if (flashMessages.success) { %>
+        <div class="flash success"> <%= flashMessages.success %> </div>
+        <% } else if (flashMessages.error) { %>
+        <div class="flash error"> <%= flashMessages.error %> </div>
+        <% } %>
+        <% } %>
     </div>
 </body>

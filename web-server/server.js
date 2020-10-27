@@ -1,10 +1,12 @@
-const express = require('express');
-path = require('path'),
+const express = require('express'),
+    router = require('./router'),
+    path = require('path'),
     layouts = require('express-ejs-layouts'),
     mongoose = require('mongoose'),
     errorHandler = require('./controllers/errorHandler'),
-    router = require('./router');
-    //appid = process.env.APPID;
+    connectFlash = require('connect-flash'),
+    cookieParser = require('cookie-parser'),
+    expressSession = require('express-session');
 
 let app = express();
 
@@ -20,6 +22,18 @@ app.use(express.urlencoded({ //Added body-parser for processing URL-encoded and 
 );
 app.use(express.json());
 
+//Adding on sessions and flash messages
+app.use(cookieParser("secret_passcode"));
+app.use(expressSession({
+    secret: "secret_passcode",
+    cookie: {
+        maxAge: 400000
+    },
+    resave: false,
+    saveUninitalized: false
+}));
+router.use(connectFlash());
+
 //Routes
 app.use('/', router);
 app.use('/info', router);
@@ -27,18 +41,6 @@ app.use('/register', router);
 app.use('/login', router);
 app.use('/profile', router);
 app.use('/edit', router);
-
-//MICROSERVICE TESTING
-// app.get('/app1', (req, res) => {
-//     res.send(`appid: ${appid} app1 page: says hello!`)
-// });
-// app.get('/app2', (req, res) => {
-//     res.send(`appid: ${appid} app2 page: says hello!`)
-// });
-// app.get('/admin', (req, res) => {
-//     res.send(`appid: ${appid} admin page: very few people should see this`)
-// });
-
 
 //Middleware
 app.use(errorHandler.respondPageNotFound);
