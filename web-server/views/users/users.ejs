@@ -1,0 +1,63 @@
+<head>
+    <meta charset="utf-8">
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>  
+</head>
+
+<div class="users">
+<h1> 
+    <% if(loggedIn) { %>
+        User Data for <%= user.name %> 
+    <% } %> 
+        User is not logged in 
+</h1> 
+
+<body>
+    <h2 class ="center">Users Table</h2>
+        <table class = "table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>UserName</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(user => { %>
+                    <tr>
+                        <td>
+                            <a href="<%=`users/${user._id}` %>">
+                                <%= user.name %>
+                            </a> 
+                        </td>
+                        <td>
+                            <a href="<%=`users/${user._id}` %>">
+                                <%= user.username %>
+                            </a> 
+                        </td>
+                        <td>
+                            <a href="<%=`users/${user._id}` %>">
+                                <%= user.email %>
+                            </a> 
+                        </td>
+                        <td>
+                            <a href="<%=`users/${user._id}` %>">
+                                <%= user.address %>
+                            </a> 
+                        </td>
+                        <td>
+                            <a href="<%= `users/${user._id}/delete?_method=DELETE` %>" 
+                            onclick="return confirm('Are you sure you want to delete this record?')"
+                            > Delete </a>
+                        </td>
+                        <td>
+                            <a href="<%=`users/${user._id}/edit` %>">
+                                Edit
+                            </a> 
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody> 
+        </table>
+</body>
+</div>

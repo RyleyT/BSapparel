@@ -6,29 +6,28 @@
         <link href="/css/style.css" rel="stylesheet" type="text/css"/> 
     </head>
     <body>
-        <h1>Welcome to the registration Page!</h1> 
-        <div id ="Registration">
-            <p>Welcome to the registration page.</p>
-        </div>
-        
-        <form method = "post">
-            <label for="username"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="username" id="username" required>
-
-            <label for="password"><b>Password</b></label>
-            <input type="text" placeholder="Enter Password" name="password" id="password" required>
-
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" id="email" required>
-
-            <label for="address"><b>Address</b></label>
-            <input type="text" placeholder="Enter Address" name="address" id="address" required>
-
-            <label for="name"><b>Name</b></label>
-            <input type="text" placeholder="Enter Name" name="name" id="name" required>
-
-            <button type="submit" id="regBtn">Register</button>
-        </form>
+        <div class="registration-form">
+            <h1>Welcome to the registration Page!</h1>  
+            <form class = "form-register" action="/register" method = "post">
+                
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" id="username" required>
+    
+                <label for="password"><b>Password</b></label>
+                <input type="text" placeholder="Enter Password" name="password" id="password" required>
+    
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" id="email" required>
+    
+                <label for="address"><b>Address</b></label>
+                <input type="text" placeholder="Enter Address" name="address" id="address" required>
+    
+                <label for="name"><b>Name</b></label>
+                <input type="text" placeholder="Enter Name" name="name" id="name" required>
+    
+                <button type="submit" id="regBtn">Register</button>
+            </form>
+        </div>  
     </body>
     
 </html>

@@ -1,8 +1,22 @@
 <div class="navbar">
     <nav>
         <a href="/">Home</a>
-        <a href="register">Register</a>
-        <a href="login">Login</a>
         <a href="profile">Profile</a>
+        <a href="users">Users</a>
+
+        <div class="login">
+            <% if(loggedIn) { %>
+            <p>Logged in as
+                <a href="<%= `/login/${currentUser._id}`%>">
+                    <%= currentUser.name %>
+                </a>
+                <a href="/login/logout">Log Out</a>
+            </p>
+            <% } else { %>
+            <a href="/login">Log in</a>
+            <% } %>
+        </div>
+
+        <a href="register">Register</a>
     </nav>
 </div>

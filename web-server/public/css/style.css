@@ -39,3 +39,24 @@ h1 {
     background-color: #4CAF50;
     color: white;
   }
+
+.users {
+    text-align: center;
+}
+
+.users table {
+    text-align: center;
+}
+
+.table {
+    background-color: aqua;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.table th {
+    padding: 10px 20px;
+}
+
+

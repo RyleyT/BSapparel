@@ -15,3 +15,9 @@ exports.respondInternalError = (req, res) => { //500 error handler
         root: "./"
     });
 };
+
+exports.logErrors = (error, req, res, next) => {
+    console.error(error.stack);
+    console.log(error.stack);
+    next(error);
+};
