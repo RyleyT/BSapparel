@@ -16,10 +16,8 @@ router.get('/register', function(req,res) {
 })
 
 router.post('/register', function(req, res) { 
-  //POST REQUEST FOR REGISTRATION GOES HERE
-  request({
-    uri: 'http://127.0.0.1:4000/'
-  }).pipe(res);
+  // after the user registers send them to the profile page
+  res.render('/profile.html', {title: 'View Profile'})
 })
 
 router.get('/login',function(req,res){
@@ -32,6 +30,11 @@ router.get('/profile',function(req,res){
 
 router.get('/edit',function(req,res){
   res.render('edit.html', {title: 'Edit Profile'})
+})
+
+router.get('/search', function(req,res)
+{
+  res.render('search.html', {title: 'Item Search'})
 })
 
 module.exports = router;

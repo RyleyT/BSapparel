@@ -27,6 +27,7 @@ app.use('/register', router);
 app.use('/login', router);
 app.use('/profile', router);
 app.use('/edit', router);
+app.use('/search', router);
 
 //MICROSERVICE TESTING
 // app.get('/app1', (req, res) => {
