@@ -35,7 +35,7 @@ app.get("/api/items", (req, res) => {
 });
 
 // retrieve a specific item back 
-app.get('/api/items/:itemID', function(req, res, next) {
+app.get('/api/items/:itemID', function(req, res) {
     Item.findById(req.params.itemID)
         .then((item) => {
             if(item) res.json(item);

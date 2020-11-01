@@ -17,7 +17,7 @@ itemRouter.get('/api/items', (req, res) => {
 });
 
 // define the itemId route
-itemRouter.get('api/items/:itemId', (req, res) => {
+itemRouter.get('/api/items/:itemId', (req, res) => {
   // Make item-service request to get item by itemId
   itemService.get(req.path)
         .then(resp => {
@@ -30,6 +30,7 @@ itemRouter.get('api/items/:itemId', (req, res) => {
 // define the item route for posting new item
 itemRouter.post('/api/items', (req, res) => {
   // Make item-service request to post new item info
+  console.log(req)
   itemService.post(req)
         .then(resp => {
             res.json(resp.data);
