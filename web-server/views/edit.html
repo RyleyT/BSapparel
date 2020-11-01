@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <link href="/css/style.css" rel="stylesheet" type="text/css"/> 
+    </head>
+    <body>
+        <h1>Update Profile</h1> 
+        <div id ="Update-Profile"></div>
+        <form action= "http://localhost:4000/api/user" method="PUT">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter New Username" name="username" id="username" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter New Password" name="password" id="password" required>
+
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter New Email" name="email" id="email" required>
+
+            <label for="address"><b>Address</b></label>
+            <input type="text" placeholder="Enter New Address" name="address" id="address" required>
+
+            <label for="name"><b>Name</b></label>
+            <input type="text" placeholder="Enter New Name" name="name" id="name" required>
+
+            <button type="submit" id="updateBtn">Update</button>
+        </form>
+    </body>
+    
+</html>
