@@ -27,6 +27,7 @@ module.exports = {
             if (user) {
                 req.flash("success", `${user.username}'s account created successfully!`);
                 res.locals.redirect = "users";
+                res.locals.user = user;
                 next();
             } else {
                 req.flash("error", `Failed to create user account because: ${e.message}.`);

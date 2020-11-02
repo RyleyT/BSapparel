@@ -1,6 +1,5 @@
 const express = require('express'),
   router = express.Router(),
-  User = require('./models/user'),
   userController = require('./controllers/userController'),
   ///TEMP DATABASE ACCESS
   mongoose = require('mongoose');

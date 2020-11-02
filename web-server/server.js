@@ -6,8 +6,8 @@ const express = require('express'),
     errorHandler = require('./controllers/errorHandler'),
     cookieParser = require('cookie-parser'),
     expressSession = require('express-session'),
-    expressValidator = require('express-validator')
-    passport = require("passport");
+    expressValidator = require('express-validator'),
+    passport = require("passport"),
     connectFlash = require('connect-flash'),
     methodOverride = require('method-override');
 
@@ -48,8 +48,6 @@ app.use((req, res, next) => { //Middleware function to pass local variables to v
     res.locals.flashMessages = req.flash();
     res.locals.loggedIn = req.isAuthenticated();
     res.locals.currentUser = req.user;
-    console.log(res.locals.currentUser);
-    console.log(res.locals.flashMessages);
     next();
 });
 
