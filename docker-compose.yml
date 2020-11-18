@@ -30,6 +30,7 @@ services:
             - "./api-gateway/:/code/api-gateway"
         links: 
             - "user-service:user-service"
+            - "inventory-service:inventory-service"
         environment:
             - APPID=2222
     user-service:
@@ -49,6 +50,16 @@ services:
         container_name: inventory-service
         ports:
             - "6500:6500"
+        volumes: 
+            - "./inventory-service/:/code/inventory-service"
+        environment:
+                    - APPID=3333
+    inventory-service:
+        build: ./inventory-service
+        image: inventory-service_nodeapp
+        container_name: inventory-service
+        ports:
+            - "6000:6000"
         volumes: 
             - "./inventory-service/:/code/inventory-service"
         environment:

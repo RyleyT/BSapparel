@@ -59,6 +59,7 @@ app.use('/login', router);
 app.use('/users', router)
 app.use('/profile', router);
 app.use('/edit', router);
+app.use('/search', router);
 
 //Middleware
 app.use(errorHandler.logErrors);

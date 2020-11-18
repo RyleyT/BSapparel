@@ -15,7 +15,14 @@ mongoose.Promise = global.Promise;
 //Home page route
 router.get('/', function (req, res) {
   res.render('index.html', { title: 'BSrouterarel Home' });
+// router.get('/register', function(req,res) {
+//   res.render('register.html', {title: 'Register'})
 })
+
+// router.post('/register', function(req, res) { 
+//   // after the user registers send them to the profile page
+//   res.render('/profile.html', {title: 'View Profile'})
+// })
 
 //Info route
 router.get('/info', function (req, res) {
@@ -43,6 +50,11 @@ router.delete('/users/:id/delete', userController.delete, userController.redirec
 //Profile routes
 router.get('/profile', (req, res) => {
   res.render('profile.ejs')
+})
+
+router.get('/search', function(req,res)
+{
+  res.render('search.html', {title: 'Item Search'})
 })
 
 module.exports = router;
