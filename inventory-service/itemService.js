@@ -14,6 +14,7 @@ server = http.createServer(function (req, res) {
 });
 
 const Item = require("./models/item");
+const { json } = require("express");
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryleyt:1qaz@cluster0.h0wyn.mongodb.net/<dbname>?retryWrites=true&w=majority", {
     useFindAndModify: false,
@@ -23,6 +24,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryleyt:1qaz@cluster0.
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 
 app.get("/api/items", (req, res) => {
     Item.find()
@@ -34,11 +36,28 @@ app.get("/api/items", (req, res) => {
         });
 });
 
+/*
 // retrieve a specific item back 
 app.get('/api/items/:itemID', function(req, res) {
     Item.findById(req.params.itemID)
         .then((item) => {
             if(item) res.json(item);
+            else res.json("item not found");
+        })
+        .catch((error) => {
+            res.json(error.message)
+        });
+});
+*/
+
+app.get('/api/items/search', function(req, res, next) {
+    var query = String(req.originalUrl); 
+    query = query.substring(29); // Remove the path /api/items/search/?searchBox=
+    query = query.replace("+", " "); // if they search for something with a space the url is appended with + so remove that
+
+    Item.find({title: query})
+        .then((item) => {
+            if(item) res.send(JSON.stringify(item, null, 2));
             else res.json("item not found");
         })
         .catch((error) => {
