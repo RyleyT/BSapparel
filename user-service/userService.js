@@ -45,6 +45,7 @@ app.get("/api/user/:userId", (req, res) => {
 });
 
 app.post("/api/user", (req, res) => {
+    console.log(req.body)
     User.create(req.body)
         .then(user => {
             res.json(user);

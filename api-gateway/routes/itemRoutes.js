@@ -17,7 +17,7 @@ itemRouter.get('/api/items', (req, res) => {
 });
 
 // define the itemId route
-itemRouter.get('api/items/:itemId', (req, res) => {
+itemRouter.get('/api/items/:itemId', (req, res) => {
   // Make item-service request to get item by itemId
   itemService.get(req.path)
         .then(resp => {
