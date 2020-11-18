@@ -25,6 +25,7 @@ app.use(express.urlencoded({
 );
 app.use(express.json());
 
+
 ///Sessions and cookies added here
 app.use(cookieParser("secret_passcode"));
 app.use(expressSession({
@@ -40,15 +41,14 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
+app.use(expressValidator());
 
 app.use(connectFlash()); //Use connect-flash to enable flash messages
-app.use(expressValidator());
 app.use((req, res, next) => { //Middleware function to pass local variables to views
-    res.locals.flashMessages = req.flash();
-    res.locals.loggedIn = req.isAuthenticated();
-    res.locals.currentUser = req.user;
-    next();
+  res.locals.flashMessages = req.flash();
+  res.locals.loggedIn = req.isAuthenticated();
+  res.locals.currentUser = req.user;
+  next();
 });
 
 //Routes

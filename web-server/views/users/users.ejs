@@ -6,9 +6,10 @@
 <div class="users">
 <h1> 
     <% if(loggedIn) { %>
-        User Data for <%= user.name %> 
+        User Data for: <%= currentUser.name %> 
+    <% } else { %> 
+        User is not logged in
     <% } %> 
-        User is not logged in 
 </h1> 
 
 <body>

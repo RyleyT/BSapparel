@@ -3,20 +3,20 @@
         <a href="/">Home</a>
         <a href="profile">Profile</a>
         <a href="users">Users</a>
+        <a href="register">Register</a>
 
         <div class="login">
             <% if(loggedIn) { %>
-            <p>Logged in as
-                <a href="<%= `/login/${currentUser._id}`%>">
-                    <%= currentUser.name %>
-                </a>
-                <a href="/login/logout">Log Out</a>
-            </p>
+            <a href="/login">Login</a>
+             <div class="logout">
+                <p>Logged in as: <%= currentUser.name %> 
+                    <a href="/logout">Log Out</a>
+                </p>
+             </div> 
             <% } else { %>
-            <a href="/login">Log in</a>
+            <a href="/login">Login</a>
             <% } %>
         </div>
 
-        <a href="register">Register</a>
     </nav>
 </div>

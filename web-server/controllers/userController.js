@@ -13,7 +13,7 @@ const User = require("../models/user"),
 
 module.exports = {
 
-    authenticate: passport.authenticate("local", {
+    authenticate: passport.authenticate('local', {
         failureRedirect: "/login",
         failureFlash: "failed to login",
         successRedirect: "/",
@@ -87,7 +87,7 @@ module.exports = {
         res.render("users/login");
     },
 
-    logout: (req, res) => {
+    logout: (req, res, next) => {
         console.log("logout called");
         req.logout();
         req.flash("success", "You have been logged out!");

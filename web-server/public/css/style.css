@@ -58,5 +58,19 @@ h1 {
 .table th {
     padding: 10px 20px;
 }
+.logout p {
+    float: right;
+    color: #3d9ce9;
+    text-decoration: none;
+    padding-right: 10;
+    font-size: 17;
+}
 
+.logout a {
+    float: left;
+    color: #bed3e4;
+    text-decoration: none;
+    padding-right: 10;
+    font-size: 17;
+}
 

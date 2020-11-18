@@ -30,7 +30,7 @@ router.post('/register', userController.validate, userController.create, userCon
 
 //Login routes
 router.get('/login', userController.login);
-router.post('/login', userController.authenticate);
+router.post('/login', userController.authenticate, userController.redirectView);
 router.get('/logout', userController.logout);
 
 //Users routes
