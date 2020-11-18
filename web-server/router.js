@@ -1,35 +1,55 @@
-var express = require('express');
-var router = express.Router();
-//const appid = process.env.APPID; 
+const express = require('express'),
+  router = express.Router(),
+  userController = require('./controllers/userController'),
+  ///TEMP DATABASE ACCESS
+  mongoose = require('mongoose');
 
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryleyt:1qaz@cluster0.h0wyn.mongodb.net/BSapparel?retryWrites=true&w=majority", {
+  useFindAndModify: false,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+mongoose.Promise = global.Promise;
+
+//Home page route
 router.get('/', function (req, res) {
-  // res.send(`appid: ${appid} hope page: says hello!`)
-  res.render('index.html', {title: 'BSApparel Home'});
+  res.render('index.html', { title: 'BSrouterarel Home' });
+// router.get('/register', function(req,res) {
+//   res.render('register.html', {title: 'Register'})
 })
 
+// router.post('/register', function(req, res) { 
+//   // after the user registers send them to the profile page
+//   res.render('/profile.html', {title: 'View Profile'})
+// })
+
+//Info route
 router.get('/info', function (req, res) {
-  res.render('info.html', {title: 'About Us'});
+  res.render('info.html', { title: 'About Us' });
 })
 
-router.get('/register', function(req,res) {
-  res.render('register.html', {title: 'Register'})
+//Register routes
+router.get('/register', function (req, res) {
+  res.render('register.html', { title: 'Register' })
 })
+router.post('/register', userController.validate, userController.create, userController.redirectView)
 
-router.post('/register', function(req, res) { 
-  // after the user registers send them to the profile page
-  res.render('/profile.html', {title: 'View Profile'})
-})
+//Login routes
+router.get('/login', userController.login);
+router.post('/login', userController.authenticate, userController.redirectView);
+router.get('/logout', userController.logout);
 
-router.get('/login',function(req,res){
-  res.render('login.html', {title: 'Log-In'})
-})
+//Users routes
+router.get('/users', userController.index, userController.indexView);
+router.get('/users/:id', userController.show, userController.showView);
+router.get('/users/:id/edit', userController.edit);
+router.put('/users/:id/update', userController.update, userController.redirectView);
+router.delete('/users/:id/delete', userController.delete, userController.redirectView);
 
-router.get('/profile',function(req,res){
-  res.render('profile.html', {title: 'View Profile'})
-})
-
-router.get('/edit',function(req,res){
-  res.render('edit.html', {title: 'Edit Profile'})
+//Profile routes
+router.get('/profile', (req, res) => {
+  res.render('profile.ejs')
 })
 
 router.get('/search', function(req,res)
