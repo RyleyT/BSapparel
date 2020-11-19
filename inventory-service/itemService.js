@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 6000;
 const mongoose = require("mongoose");
+const morgan = require('morgan');
 
 // Setting up proxy server to listen for api-gateway.
 var http = require('http');
@@ -25,6 +26,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryleyt:1qaz@cluster0.
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(morgan('Inventory-Service\: :method :url :status :res[content-length] - :response-time ms'));
 
 app.get("/api/items", (req, res) => {
     Item.find()

@@ -20,7 +20,8 @@
     "express": "^4.17.1",
     "express-http-proxy": "^1.6.2",
     "http-proxy": "^1.18.1",
-    "mongoose": "^5.10.8"
+    "mongoose": "^5.10.8",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
