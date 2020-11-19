@@ -4,7 +4,7 @@
   "description": "This is a basic server app designed to serve products back to a user using Node.js",
   "main": "server.js",
   "scripts": {
-    "test": "((cd ../api-gateway && npm run start) & (cd ../user-service && npm run start) & (cd ../inventory-service && npm run start)) & npm run start",
+    "test": "((cd ../api-gateway && npm run start) & (cd ../user-service && npm run start) & (cd ../inventory-service && npm run start) & (cd ../purchasing-service && npm run start)) & npm run start",
     "start": "nodemon server.js"
   },
   "repository": {
