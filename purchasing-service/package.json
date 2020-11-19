@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node purchaseService.js"
+    "start": "nodemon purchaseService.js"
   },
   "dependencies": {
     "debug": "~2.6.9",
@@ -11,5 +11,8 @@
     "http-errors": "~1.6.3",
     "mongoose": "^5.10.15",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }

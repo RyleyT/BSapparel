@@ -1,6 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
-var logger = require('morgan');
+var morgan = require('morgan');
 const PORT = process.env.PORT || 7000;
 const mongoose = require('mongoose');
 
@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryleyt:1qaz@cluster0.
 
 var app = express();
 
-app.use(logger('dev'));
+app.use(morgan('Purchase-Service\: :method :url :status :res[content-length] - :response-time ms'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
