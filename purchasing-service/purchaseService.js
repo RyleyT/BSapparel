@@ -1,8 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
 var logger = require('morgan');
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 7000;
 const mongoose = require('mongoose');
 
 // Setting up proxy server to listen for api-gateway.
@@ -29,7 +28,28 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// receive all orders from db
+app.get("/api/orders", (req, res) => {
+  Order.find()
+  .then((orders) => {
+    res.json(orders);
+  })
+  .catch((err) => {
+    res.json(err.message);
+  })
+});
 
+// create new order history in db
+app.post("/api/orders", function (req, res) {
+  // console.log(req.body);
+  Order.create(req.body)
+      .then((order) => {
+          res.json(order);
+      })
+      .catch((err) => {
+          res.json(err.message);
+      });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -48,5 +68,5 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(PORT, () => {
-  console.log(`Inventory service listening on port ${PORT}`);
+  console.log(`Purchasing service listening on port ${PORT}`);
 });
