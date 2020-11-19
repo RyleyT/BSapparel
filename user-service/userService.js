@@ -3,6 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const morgan = require('morgan');
+const bcrypt = require('bcrypt');
 
 // Setting up proxy server to listen for api-gateway.
 var http = require('http');
@@ -48,15 +49,80 @@ app.get("/api/user/:userId", (req, res) => {
 });
 
 app.post("/api/user", (req, res) => {
-    console.log(req.body)
-    User.create(req.body)
+    User.find({ email: req.body.email })
+        .exec()
         .then(user => {
-            res.json(user);
-        })
-        .catch(err => {
-            res.json(err.message);
+            if (user.length >= 1) {
+                return res.status(409).json({
+                    message: 'Unable to create user with provided information'
+                });
+            } else {
+                // salt and hash password for db storing
+                bcrypt.hash(req.body.password, 10, function (err, hash) {
+                    if (err) {
+                        return res.status(500).json(err.message)
+                    } else {
+                        const user = new User({
+                            email: req.body.email,
+                            name: req.body.name,
+                            password: hash,
+                            username: req.body.username,
+                            address: req.body.address,
+                        })
+                        user.save()
+                            .then(result => {
+                                res.status(201).json({
+                                    message: 'User created'
+                                }, result);
+                            })
+                            .catch(error => {
+                                res.status(500).json(error.message);
+                            });
+                    }
+                });
+            }
         });
+    // User.create(req.body)
+    //     .then(user => {
+    //         res.json(user);
+    //     })
+    //     .catch(err => {
+    //         res.json(err.message);
+    //     });
 });
+
+app.post("/api/user/login", (req, res) => {
+    User.find({ email: req.body.email })
+        .exec()
+        .then(user => {
+            if(user.length < 1) {
+                return res.status(401).json({
+                    message: "Auth failed"
+                });
+            } else {
+                bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+                    if(err) {
+                        return res.status(401).json({
+                            message: "Auth failed"
+                        });
+                    }
+                    if(result) {
+                        return res.status(200).json({
+                            message: "Auth successful"
+                        });
+                    }
+                    return res.status(401).json({
+                        message: "Auth failed"
+                    });
+                })
+            }
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: error.message
+            });
+        });
+})
 
 app.put("/api/user/:userId", (req, res) => {
     updateUser = User.findById(req.params.userId);
