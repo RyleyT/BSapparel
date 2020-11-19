@@ -39,3 +39,38 @@ h1 {
     background-color: #4CAF50;
     color: white;
   }
+
+.users {
+    text-align: center;
+}
+
+.users table {
+    text-align: center;
+}
+
+.table {
+    background-color: aqua;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.table th {
+    padding: 10px 20px;
+}
+.logout p {
+    float: right;
+    color: #3d9ce9;
+    text-decoration: none;
+    padding-right: 10;
+    font-size: 17;
+}
+
+.logout a {
+    float: left;
+    color: #bed3e4;
+    text-decoration: none;
+    padding-right: 10;
+    font-size: 17;
+}
+
