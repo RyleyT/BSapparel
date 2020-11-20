@@ -3,6 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const morgan = require('morgan');
+const bodyParser = require('body-parser'); // testing
 
 // Setting up proxy server to listen for api-gateway.
 var http = require('http');
@@ -48,10 +49,11 @@ app.get("/api/user/:userId", (req, res) => {
 });
 
 app.post("/api/user", (req, res) => {
-    console.log(req.body)
+    console.log(req.body);
     User.create(req.body)
         .then(user => {
-            res.json(user);
+            //res.json(user);
+            res.redirect('http://localhost:3000/login'); // send them to the login page instead of printing their json data back.
         })
         .catch(err => {
             res.json(err.message);
