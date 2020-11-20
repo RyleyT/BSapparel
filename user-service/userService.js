@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const morgan = require('morgan');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 // Setting up proxy server to listen for api-gateway.
 var http = require('http');
@@ -107,8 +108,18 @@ app.post("/api/user/login", (req, res) => {
                         });
                     }
                     if(result) {
+                        const token = jwt.sign({
+                            email: user[0].email,
+                            userId: user[0]._id,
+                            username: user[0].username
+                        },
+                        "thisI$th3$3cretSTRING",
+                        {
+                            expiresIn: "1h"
+                        });
                         return res.status(200).json({
-                            message: "Auth successful"
+                            message: "Auth successful",
+                            token: token
                         });
                     }
                     return res.status(401).json({
