@@ -3,6 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const morgan = require('morgan');
+const bodyParser = require('body-parser'); // testing
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const auth = require('./auth');
@@ -51,6 +52,16 @@ app.get("/api/user/:userId", auth, (req, res) => {
 });
 
 app.post("/api/user", (req, res) => {
+/*
+    console.log(req.body);
+    User.create(req.body)
+        .then(user => {
+            //res.json(user);
+            res.redirect('http://localhost:3000/login'); // send them to the login page instead of printing their json data back.
+        })
+        .catch(err => {
+            res.json(err.message);
+*/
     User.find({ email: req.body.email })
         .exec()
         .then(user => {

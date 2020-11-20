@@ -3,6 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 6000;
 const mongoose = require("mongoose");
 const morgan = require('morgan');
+const bodyParser = require('body-parser'); // testing
 
 // Setting up proxy server to listen for api-gateway.
 var http = require('http');
@@ -57,10 +58,23 @@ app.get('/api/items/search', function(req, res, next) {
     query = query.substring(29); // Remove the path /api/items/search/?searchBox=
     query = query.replace("+", " "); // if they search for something with a space the url is appended with + so remove that
 
+    var response = "<form action= \"http://localhost:7000/api/orders\" method=\"GET\" id=\"myform\"</form><table style=\"width:75%\"><th style=\"text-align:left\">Item</th><th style=\"text-align:left\">Price</th><th style=\"text-align:left\">Description</th></th><th style=\"text-align:left\">Purchase</th>";
+
     Item.find({title: query})
         .then((item) => {
-            if(item) res.send(JSON.stringify(item, null, 2));
-            else res.json("item not found");
+            if(item)
+            {
+                item.forEach(indivItem =>{
+                    response += `<tr> <td>${indivItem.title}</td> <td>$${indivItem.price}</td> <td>${indivItem.description}</td><td><button type=\"button\" form=\"myform\">Purchase</button></tr>`;
+                });
+                response += '</table>'
+                res.send(response); // doesnt work like I want on button press because sending a response back. 
+                //res.send(JSON.stringify(item, null, 2));
+            } 
+            else 
+            {
+                res.json("item not found");
+            }
         })
         .catch((error) => {
             res.json(error.message)
