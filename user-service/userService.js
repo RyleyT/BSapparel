@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const morgan = require('morgan');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const auth = require('./auth');
 
 // Setting up proxy server to listen for api-gateway.
 var http = require('http');
@@ -29,7 +30,7 @@ app.use(express.json());
 
 app.use(morgan('User-Service\: :method :url :status :res[content-length] - :response-time ms'));
 
-app.get("/api/user", (req, res) => {
+app.get("/api/user", auth, (req, res) => {
     User.find()
         .then((Users) => {
             res.json(Users);
@@ -39,7 +40,7 @@ app.get("/api/user", (req, res) => {
         });
 });
 
-app.get("/api/user/:userId", (req, res) => {
+app.get("/api/user/:userId", auth, (req, res) => {
     User.findById(req.params.userId)
         .then(user => {
             res.json(user);
@@ -135,7 +136,7 @@ app.post("/api/user/login", (req, res) => {
         });
 })
 
-app.put("/api/user/:userId", (req, res) => {
+app.put("/api/user/:userId", auth, (req, res) => {
     updateUser = User.findById(req.params.userId);
     User.update(updateUser)
         .then(user => {
@@ -147,7 +148,7 @@ app.put("/api/user/:userId", (req, res) => {
 
 });
 
-app.delete("/api/user/:userId", (req, res) => {
+app.delete("/api/user/:userId", auth, (req, res) => {
     User.findByIdAndDelete(req.params.userId)
         .then(user => {
             res.json(user);
