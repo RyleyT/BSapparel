@@ -3,6 +3,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const morgan = require('morgan');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const auth = require('./auth');
 
 // Setting up proxy server to listen for api-gateway.
 var http = require('http');
@@ -27,7 +30,7 @@ app.use(express.json());
 
 app.use(morgan('User-Service\: :method :url :status :res[content-length] - :response-time ms'));
 
-app.get("/api/user", (req, res) => {
+app.get("/api/user", auth, (req, res) => {
     User.find()
         .then((Users) => {
             res.json(Users);
@@ -37,7 +40,7 @@ app.get("/api/user", (req, res) => {
         });
 });
 
-app.get("/api/user/:userId", (req, res) => {
+app.get("/api/user/:userId", auth, (req, res) => {
     User.findById(req.params.userId)
         .then(user => {
             res.json(user);
@@ -48,17 +51,92 @@ app.get("/api/user/:userId", (req, res) => {
 });
 
 app.post("/api/user", (req, res) => {
-    console.log(req.body)
-    User.create(req.body)
+    User.find({ email: req.body.email })
+        .exec()
         .then(user => {
-            res.json(user);
-        })
-        .catch(err => {
-            res.json(err.message);
+            if (user.length >= 1) {
+                return res.status(409).json({
+                    message: 'Unable to create user with provided information'
+                });
+            } else {
+                // salt and hash password for db storing
+                bcrypt.hash(req.body.password, 10, function (err, hash) {
+                    if (err) {
+                        return res.status(500).json(err.message)
+                    } else {
+                        const user = new User({
+                            email: req.body.email,
+                            name: req.body.name,
+                            password: hash,
+                            username: req.body.username,
+                            address: req.body.address,
+                        })
+                        user.save()
+                            .then(result => {
+                                res.status(201).json({
+                                    message: 'User created'
+                                }, result);
+                            })
+                            .catch(error => {
+                                res.status(500).json(error.message);
+                            });
+                    }
+                });
+            }
         });
+    // User.create(req.body)
+    //     .then(user => {
+    //         res.json(user);
+    //     })
+    //     .catch(err => {
+    //         res.json(err.message);
+    //     });
 });
 
-app.put("/api/user/:userId", (req, res) => {
+app.post("/api/user/login", (req, res) => {
+    User.find({ email: req.body.email })
+        .exec()
+        .then(user => {
+            if(user.length < 1) {
+                return res.status(401).json({
+                    message: "Auth failed"
+                });
+            } else {
+                bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+                    if(err) {
+                        return res.status(401).json({
+                            message: "Auth failed"
+                        });
+                    }
+                    if(result) {
+                        const token = jwt.sign({
+                            email: user[0].email,
+                            userId: user[0]._id,
+                            username: user[0].username
+                        },
+                        "thisI$th3$3cretSTRING",
+                        {
+                            expiresIn: "1h"
+                        });
+                        return res.status(200).json({
+                            message: "Auth successful",
+                            token: token
+                        });
+                    }
+                    return res.status(401).json({
+                        message: "Auth failed"
+                    });
+                })
+            }
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: error.message
+            });
+        });
+})
+
+app.put("/api/user/:userId", auth, (req, res) => {
     updateUser = User.findById(req.params.userId);
     User.update(updateUser)
         .then(user => {
@@ -70,7 +148,7 @@ app.put("/api/user/:userId", (req, res) => {
 
 });
 
-app.delete("/api/user/:userId", (req, res) => {
+app.delete("/api/user/:userId", auth, (req, res) => {
     User.findByIdAndDelete(req.params.userId)
         .then(user => {
             res.json(user);
