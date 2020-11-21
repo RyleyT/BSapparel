@@ -1,13 +1,6 @@
 version : '3'
 
 services:
-    # lb:
-    #     image: haproxy
-    #     container_name: haproxy
-    #     ports:
-    #         - "8080:8080"
-    #     volumes:
-    #         - "./haproxy:/usr/local/sbin/haproxy"
     web-server:
         build: ./web-server
         image: web-server_nodeapp
@@ -31,6 +24,7 @@ services:
         links: 
             - "user-service:user-service"
             - "inventory-service:inventory-service"
+            - "purchasing-service:purchasing-service"
         environment:
             - APPID=2222
     user-service:
@@ -54,13 +48,13 @@ services:
             - "./inventory-service/:/code/inventory-service"
         environment:
                     - APPID=3333
-    inventory-service:
-        build: ./inventory-service
-        image: inventory-service_nodeapp
+    purchasing-service:
+        build: ./purchasing-service
+        image: purchasing-service_nodeapp
         container_name: inventory-service
         ports:
-            - "6000:6000"
+            - "7000:7000"
         volumes: 
-            - "./inventory-service/:/code/inventory-service"
+            - "./purchasing-service/:/code/purchasing-service"
         environment:
-            - APPID=4444
+            - APPID=5555
