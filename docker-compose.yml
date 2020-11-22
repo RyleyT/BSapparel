@@ -51,7 +51,7 @@ services:
     purchasing-service:
         build: ./purchasing-service
         image: purchasing-service_nodeapp
-        container_name: inventory-service
+        container_name: purchasing-service
         ports:
             - "7000:7000"
         volumes: 
