@@ -13,3 +13,4 @@ then go to localhost:3000 in your preferred browser.
 Milestone 1 video: https://youtu.be/48jePtWpLdE
 Milestone 2 video: https://www.youtube.com/watch?v=-rylMTnB7fU&feature=youtu.be
 Milestone 3 video: https://www.youtube.com/watch?v=y739Q-Ym7Pw
+Milestone 4 video: https://youtu.be/xJvlzPhudCI
