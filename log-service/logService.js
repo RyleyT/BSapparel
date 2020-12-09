@@ -28,6 +28,17 @@ app.use(morgan('Log-Service\: :method :url :status :res[content-length] - :respo
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// receive all logs from db
+app.get("/api/logs/", (req, res) => {
+  Log.find()
+  .then((logs) => {
+    res.json(logs);
+  })
+  .catch((err) => {
+    res.json(err.message);
+  })
+});
+
 // receive all logs from db by service name
 app.get("/api/logs/:service", (req, res) => {
   Log.find({service: req.params.service})
