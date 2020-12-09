@@ -32,6 +32,20 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/api/orders", (req, res) => {
   Order.find()
   .then((orders) => {
+    // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+    // Log response with log-service
+    let log = {
+      service: "Purchase",
+      route: "/api/orders",
+      // reponseId: res.ID,
+      message: "returning all orders in db.",
+      date: Date.now
+    }
+    console.log(log);
+    // Send to log-service
+    // fetch(logUrl, log);
+
     res.json(orders);
   })
   .catch((err) => {
@@ -44,7 +58,21 @@ app.post("/api/orders", function (req, res) {
   // console.log(req.body);
   Order.create(req.body)
       .then((order) => {
-          res.json(order);
+        // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+        // Log response with log-service
+        let log = {
+          service: "Purchase",
+          route: "/api/orders",
+          // reponseId: res.ID,
+          message: "creating order in db.",
+          date: Date.now
+        }
+        console.log(log);
+        // Send to log-service
+        // fetch(logUrl, log);
+    
+        res.json(order);
       })
       .catch((err) => {
           res.json(err.message);

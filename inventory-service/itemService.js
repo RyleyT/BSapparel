@@ -32,6 +32,20 @@ app.use(morgan('Inventory-Service\: :method :url :status :res[content-length] - 
 app.get("/api/items", (req, res) => {
     Item.find()
         .then((items) => {
+            // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+            // Log response with log-service
+            let log = {
+                service: "Inventory",
+                route: "/api/items",
+                // reponseId: res.ID,
+                message: "returning all items in db.",
+                date: Date.now
+            }
+            console.log(log);
+            // Send to log-service
+            // fetch(logUrl, log);
+
             res.json(items);
         })
         .catch((err) => {
@@ -62,6 +76,20 @@ app.get('/api/items/search', function(req, res, next) {
 
     Item.find({title: query})
         .then((item) => {
+            // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+            // Log response with log-service
+            let log = {
+                service: "Inventory",
+                route: "/api/items/search",
+                // reponseId: res.ID,
+                message: "returning searched itmes from db.",
+                date: Date.now
+            }
+            console.log(log);
+            // Send to log-service
+            // fetch(logUrl, log);
+
             if(item)
             {
                 item.forEach(indivItem =>{
@@ -85,6 +113,20 @@ app.get('/api/items/search', function(req, res, next) {
 app.post("/api/items", function (req, res) {
     Item.create(req.body)
         .then((item) => {
+            // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+            // Log response with log-service
+            let log = {
+                service: "Inventory",
+                route: "/api/items",
+                // reponseId: res.ID,
+                message: "creating new item in db.",
+                date: Date.now
+            }
+            console.log(log);
+            // Send to log-service
+            // fetch(logUrl, log);
+
             res.json(item);
         })
         .catch((err) => {
@@ -96,6 +138,20 @@ app.put("/api/items/:itemId", (req, res) => {
     const updateItem = Item.findById(req.params.itemId);
     Item.update(updateItem, req.body)
         .then(updateData => {
+            // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+            // Log response with log-service
+            let log = {
+                service: "Inventory",
+                route: "/api/items/:itemId",
+                // reponseId: res.ID,
+                message: "updating item in db.",
+                date: Date.now
+            }
+            console.log(log);
+            // Send to log-service
+            // fetch(logUrl, log);
+
             res.json(updateData)
         })
         .catch(err => {
@@ -107,6 +163,20 @@ app.put("/api/items/:itemId", (req, res) => {
 app.delete("/api/items/:itemId", (req, res) => {
     Item.findByIdAndDelete(req.params.itemId)
         .then(itemData => {
+            // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+            // Log response with log-service
+            let log = {
+                service: "Inventory",
+                route: "/api/items/:itemId",
+                // reponseId: res.ID,
+                message: "deleting item in db.",
+                date: Date.now
+            }
+            console.log(log);
+            // Send to log-service
+            // fetch(logUrl, log);
+
             res.json(itemData);
         })
         .catch(err => {

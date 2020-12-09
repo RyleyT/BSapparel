@@ -4,15 +4,15 @@
         <a href="profile">Profile</a>
         <a href="users">Users</a>
         <a href="register">Register</a>
-	<a href = "search">Search</a>
+        <a href="search">Search</a>
         <div class="login">
             <% if(loggedIn) { %>
             <a href="/login">Login</a>
-             <div class="logout">
-                <p>Logged in as: <%= currentUser.name %> 
+            <div class="logout">
+                <p>Logged in as: <%= currentUser.name %>
                     <a href="/logout">Log Out</a>
                 </p>
-             </div> 
+            </div>
             <% } else { %>
             <a href="/login">Login</a>
             <% } %>

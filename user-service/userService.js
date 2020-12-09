@@ -3,7 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const morgan = require('morgan');
-const bodyParser = require('body-parser'); // testing
+// const bodyParser = require('body-parser'); // testing
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const auth = require('./auth');
@@ -31,9 +31,21 @@ app.use(express.json());
 
 app.use(morgan('User-Service\: :method :url :status :res[content-length] - :response-time ms'));
 
-app.get("/api/user", auth, (req, res) => {
+app.get("/api/user", (req, res) => {
     User.find()
         .then((Users) => {
+            // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+            // Log response with log-service
+            let log = {
+                service: "User",
+                route: "/api/user",
+                // reponseId: res.ID,
+                message: "returning all users in db.",
+                date: Date.now
+            }
+            console.log(log);
+
             res.json(Users);
         })
         .catch((err) => {
@@ -44,6 +56,18 @@ app.get("/api/user", auth, (req, res) => {
 app.get("/api/user/:userId", auth, (req, res) => {
     User.findById(req.params.userId)
         .then(user => {
+            // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+            // Log response with log-service
+            let log = {
+                service: "User",
+                route: "/api/user/:userId",
+                // reponseId: res.ID,
+                message: "returning user specified by id in db.",
+                date: Date.now
+            }
+            console.log(log);
+
             res.json(user);
         })
         .catch(err => {
@@ -84,6 +108,18 @@ app.post("/api/user", (req, res) => {
                         })
                         user.save()
                             .then(result => {
+                                // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+                                // Log response with log-service
+                                let log = {
+                                    service: "User",
+                                    route: "/api/user",
+                                    // reponseId: res.ID,
+                                    message: "creating new user in db.",
+                                    date: Date.now
+                                }
+                                console.log(log);
+
                                 res.status(201).json({
                                     message: 'User created'
                                 }, result);
@@ -113,6 +149,18 @@ app.post("/api/user/login", (req, res) => {
                     message: "Auth failed"
                 });
             } else {
+                // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+                // Log response with log-service
+                let log = {
+                    service: "User",
+                    route: "/api/user/login",
+                    // reponseId: res.ID,
+                    message: "returning user specified by login credentials",
+                    date: Date.now
+                }
+                console.log(log);
+
                 bcrypt.compare(req.body.password, user[0].password, (err, result) => {
                     if(err) {
                         return res.status(401).json({
@@ -151,6 +199,18 @@ app.put("/api/user/:userId", auth, (req, res) => {
     updateUser = User.findById(req.params.userId);
     User.update(updateUser)
         .then(user => {
+            // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+            // Log response with log-service
+            let log = {
+                service: "User",
+                route: "/api/user/:userId",
+                // reponseId: res.ID,
+                message: "updating user specified by id in db.",
+                date: Date.now
+            }
+            console.log(log);
+
             res.json(user)
         })
         .catch(err => {
@@ -162,6 +222,18 @@ app.put("/api/user/:userId", auth, (req, res) => {
 app.delete("/api/user/:userId", auth, (req, res) => {
     User.findByIdAndDelete(req.params.userId)
         .then(user => {
+            // res.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+
+            // Log response with log-service
+            let log = {
+                service: "User",
+                route: "/api/user/:userId",
+                // reponseId: res.ID,
+                message: "deleting user specified by id in the db",
+                date: Date.now
+            }
+            console.log(log);
+            
             res.json(user);
         })
         .catch(err => {
