@@ -58,3 +58,18 @@ services:
             - "./purchasing-service/:/code/purchasing-service"
         environment:
             - APPID=5555
+    log-service:
+        build: ./log-service
+        image: log-service_nodeapp
+        container_name: log-service
+        ports:
+            - "8000:8000"
+        volumes: 
+            - "./log-service/:/code/log-service"
+        links: 
+            - "web-server:web-server"
+            - "user-service:user-service"
+            - "inventory-service:inventory-service"
+            - "purchasing-service:purchasing-service"
+        environment:
+            - APPID=6666
