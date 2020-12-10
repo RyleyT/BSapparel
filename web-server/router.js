@@ -1,71 +1,87 @@
 const express = require('express'),
   router = express.Router(),
   ///TEMP DATABASE ACCESS
-  mongoose = require('mongoose');
+  mongoose = require('mongoose'),
+  logger = require('./controllers/logController');
 
 //Home page route
 router.get('/', function (req, res) {
-  res.render('index.html', { title: 'BSrouterarel Home' });
-// router.get('/register', function(req,res) {
-//   res.render('register.html', {title: 'Register'})
-})
+  // Log response with log-service
+  let log = {
+    service: "Client",
+    route: "/",
+    responseId: res.getHeader(`x-request-id`),
+    message: "showing client home page",
+    date: Date.now
+  }
+  // Send log to log controller
+  logger.logResponse(log);
 
-// router.post('/register', function(req, res) { 
-//   // after the user registers send them to the profile page
-//   res.render('/profile.html', {title: 'View Profile'})
-// })
+  res.render('index.html', { title: 'BS Apparel Home' });
+  // router.get('/register', function(req,res) {
+  //   res.render('register.html', {title: 'Register'})
+})
 
 //Info route
 router.get('/info', function (req, res) {
-    // req.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+  // Log response with log-service
+  let log = {
+    service: "Client",
+    route: "/info",
+    responseId: res.getHeader(`x-request-id`),
+    message: "showing client info page",
+    date: Date.now
+  }
+  // Send log to log controller
+  logger.logResponse(log);
 
-    // Log response with log-service
-    let log = {
-      service: "Client",
-      route: "/info",
-      // requestId: req.ID,
-      message: "showing client info page",
-      date: Date.now
-    }
-    console.log(log);
-    // Send to log-service
-    // fetch(logUrl, log);
-    
   res.render('info.html', { title: 'About Us' });
 })
 
 //Register routes
-router.get('/register', function (req, res) {
-  // req.setHeader("ID", Math.random() * (1000000 - 100) + 100);
-
+router
+  .get('/register', function (req, res) {
     // Log response with log-service
     let log = {
       service: "Client",
       route: "/register",
-      // requestId: req.ID,
+      responseId: res.getHeader(`x-request-id`),
       message: "showing client register page",
       date: Date.now
     }
-    console.log(log);
-    // Send to log-service
-    // fetch(logUrl, log);
-  res.render('register.html', { title: 'Register' })
-})
+    // Send log to log controller
+    logger.logResponse(log);
 
-router.get('/login', function (req, res) {
-  // req.setHeader("ID", Math.random() * (1000000 - 100) + 100);
-
+    res.render('register.html', { title: 'Register' })
+  })
+  .post('/register', /*userController.create,*/ function (req, res) {
     // Log response with log-service
     let log = {
       service: "Client",
-      route: "/login",
-      // requestId: req.ID,
-      message: "showing client login page",
+      route: "/register",
+      requestId: res.getHeader(`x-request-id`),
+      message: "requesting to add new client to user service",
       date: Date.now
     }
-    console.log(log);
-    // Send to log-service
-    // fetch(logUrl, log);
+    // Send log to log controller
+    logger.logResponse(log);
+
+    // after the user registers send them to the profile page
+    res.render('/profile.html', { title: 'View Profile' })
+  });
+
+router.get('/login', function (req, res) {
+  // Log response with log-service
+  let log = {
+    service: "Client",
+    route: "/login",
+    responseId: res.getHeader(`x-request-id`),
+    message: "showing client login page",
+    date: Date.now
+  }
+  // Send log to log controller
+  logger.logResponse(log);
+
   res.render('login.html', { title: 'Login' })
 })
 // router.post('/register', userController.validate, userController.create, userController.redirectView)
@@ -83,39 +99,34 @@ router.get('/login', function (req, res) {
 // router.delete('/users/:id/delete', userController.delete, userController.redirectView);
 
 //Profile routes
-router.get('/profile', (req, res) => {
-  // req.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+router.get('/profile', function (req, res) {
+  // Log response with log-service
+  let log = {
+    service: "Client",
+    route: "/profile",
+    responseId: res.getHeader(`x-request-id`),
+    message: "showing client profile page",
+    date: Date.now
+  }
+  // Send log to log controller
+  logger.logResponse(log);
 
-    // Log response with log-service
-    let log = {
-      service: "Client",
-      route: "/profile",
-      // requestId: req.ID,
-      message: "showing client profile page",
-      date: Date.now
-    }
-    console.log(log);
-    // Send to log-service
-    // fetch(logUrl, log);
   res.render('profile.ejs')
 })
 
-router.get('/search', function(req,res)
-{
-  // req.setHeader("ID", Math.random() * (1000000 - 100) + 100);
+router.get('/search', function (req, res) {
+  // Log response with log-service
+  let log = {
+    service: "Client",
+    route: "/search",
+    responseId: res.getHeader(`x-request-id`),
+    message: "showing client search page",
+    date: Date.now
+  }
+  // Send log to log controller
+  logger.logResponse(log);
 
-    // Log response with log-service
-    let log = {
-      service: "Client",
-      route: "/search",
-      // requestId: req.ID,
-      message: "showing client search page",
-      date: Date.now
-    }
-    console.log(log);
-    // Send to log-service
-    // fetch(logUrl, log);
-  res.render('search.html', {title: 'Item Search'})
+  res.render('search.html', { title: 'Item Search' })
 })
 
 module.exports = router;

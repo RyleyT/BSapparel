@@ -6,16 +6,7 @@
         <a href="register">Register</a>
         <a href="search">Search</a>
         <div class="login">
-            <% if(loggedIn) { %>
             <a href="/login">Login</a>
-            <div class="logout">
-                <p>Logged in as: <%= currentUser.name %>
-                    <a href="/logout">Log Out</a>
-                </p>
-            </div>
-            <% } else { %>
-            <a href="/login">Login</a>
-            <% } %>
         </div>
 
     </nav>

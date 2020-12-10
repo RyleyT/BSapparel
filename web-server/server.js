@@ -5,9 +5,11 @@ const express = require('express'),
     cookieParser = require('cookie-parser'),
     expressSession = require('express-session'),
     expressValidator = require('express-validator'),
+    cors = require('cors'),
     passport = require("passport"),
     connectFlash = require('connect-flash'),
-    methodOverride = require('method-override');
+    methodOverride = require('method-override'),
+    addRequestId = require('express-request-id')();  
 
 let app = express();
 app.use(methodOverride("_method", { methods: ["POST", "GET"] }));
@@ -18,10 +20,11 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(layouts);
 app.use(express.urlencoded({
-    extended: false
-})
+        extended: false
+    })
 );
 app.use(express.json());
+app.use(cors());
 
 
 ///Sessions and cookies added here
@@ -42,12 +45,13 @@ app.use(express.json());
 // app.use(expressValidator());
 
 app.use(connectFlash()); //Use connect-flash to enable flash messages
-app.use((req, res, next) => { //Middleware function to pass local variables to views
-  // res.locals.flashMessages = req.flash();
-  res.locals.loggedIn = req.isAuthenticated();
-  res.locals.currentUser = req.user;
-  next();
-});
+app.use(addRequestId); //Add request Id
+// app.use((req, res, next) => { //Middleware function to pass local variables to views
+//   // res.locals.flashMessages = req.flash();
+//   res.locals.loggedIn = req.isAuthenticated();
+//   res.locals.currentUser = req.user;
+//   next();
+// });
 
 //Routes
 app.use('/', router);

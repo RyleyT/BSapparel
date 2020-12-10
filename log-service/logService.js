@@ -3,6 +3,7 @@ var express = require('express');
 var morgan = require('morgan');
 const PORT = process.env.PORT || 8000;
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 // Setting up proxy server to listen for api-gateway.
 var http = require('http');
@@ -24,20 +25,34 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryleyt:1qaz@cluster0.
 
 var app = express();
 
+app.use(cors());
 app.use(morgan('Log-Service\: :method :url :status :res[content-length] - :response-time ms'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // receive all logs from db
-app.get("/api/logs/", (req, res) => {
-  Log.find()
-  .then((logs) => {
-    res.json(logs);
+app
+  .get("/api/logs/", (req, res) => {
+    Log.find()
+    .then((logs) => {
+      res.json(logs);
+    })
+    .catch((err) => {
+      res.json(err.message);
+    })
   })
-  .catch((err) => {
-    res.json(err.message);
-  })
-});
+  // create new log history in db
+  .post("/api/logs", function (req, res) {
+    console.log(req.headers);
+    console.dir(req.body);
+    Log.create(req.body)
+        .then((log) => {
+            res.json(log);
+        })
+        .catch((err) => {
+            res.json(err.message);
+        });
+  });
 
 // receive all logs from db by service name
 app.get("/api/logs/:service", (req, res) => {
@@ -83,18 +98,6 @@ app.get("/api/logs/:date", (req, res) => {
   })
 });
 
-// create new log history in db
-app.post("/api/logs", function (req, res) {
-  // console.log(req.body);
-  Log.create(req.body)
-      .then((log) => {
-          res.json(log);
-      })
-      .catch((err) => {
-          res.json(err.message);
-      });
-});
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -108,7 +111,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json('error');
 });
 
 app.listen(PORT, () => {
