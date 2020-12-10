@@ -108,3 +108,4 @@ web-server/package-lock.json
 log-service/package-lock.json
 web-server/package-lock.json
 user-service/package-lock.json
+inventory-service/package-lock.json
