@@ -112,3 +112,6 @@ inventory-service/package-lock.json
 inventory-service/package-lock.json
 purchasing-service/package-lock.json
 user-service/package-lock.json
+inventory-service/package-lock.json
+purchasing-service/package-lock.json
+user-service/package-lock.json
