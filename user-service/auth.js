@@ -10,6 +10,17 @@ module.exports = (req,res,next) => {
         req.userData = decodedToken;
         next();
     } catch (error) {
+        // Log response with log-service
+        let log = {
+            service: "User",
+            route: "/api/user/:userId",
+            responseId: res.getHeader(`x-request-id`),
+            message: "responding with failed AUTH error",
+            date: Date.now
+        }
+        // Send log to log controller
+        logger.logResponse(log);
+
         return res.status(401).json({
             message: "Auth failed"
         });
