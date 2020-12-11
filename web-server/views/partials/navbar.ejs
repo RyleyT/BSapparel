@@ -2,12 +2,18 @@
     <nav>
         <a href="/">Home</a>
         <a href="profile">Profile</a>
-        <a href="users">Users</a>
         <a href="register">Register</a>
         <a href="search">Search</a>
-        <div class="login">
+        <!-- <div class="login">
             <a href="/login">Login</a>
-        </div>
+        </div> -->
+        <% if (!loggedIn) { %>
+                <a href="/login">Login</a>
+        <% } else { %>
+                <a href="/logout">Logout</a>
+        <% } %>
+        
+        
 
     </nav>
 </div>
