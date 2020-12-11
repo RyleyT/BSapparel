@@ -9,8 +9,8 @@ async function logResponse(log) {
   }).then((resp) => {
     return resp.json();
   }).then((body) => {
-  //  console.log(`*****LOGGED ACTION*****`);
-   // console.dir(body);
+   console.log(`*****LOGGED ACTION*****`);
+   console.dir(body);
   }).catch((error) => {
    // console.log(`ERROR LOGGING: ` + error)
   });

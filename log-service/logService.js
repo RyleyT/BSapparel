@@ -16,6 +16,7 @@ server = http.createServer(function (req, res) {
 });
 
 const Log = require("./models/log");
+const { route } = require('../web-server/router');
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryleyt:1qaz@cluster0.h0wyn.mongodb.net/<dbname>?retryWrites=true&w=majority", {
     useFindAndModify: false,
@@ -55,7 +56,7 @@ app
   });
 
 // receive all logs from db by service name
-app.get("/api/logs/:service", (req, res) => {
+app.get("/api/logs/service/:service", (req, res) => {
   Log.find({service: req.params.service})
   .then((logs) => {
     res.json(logs);
@@ -66,8 +67,8 @@ app.get("/api/logs/:service", (req, res) => {
 });
 
 // receive all logs from db by request id
-app.get("/api/logs/:reqId", (req, res) => {
-  Log.find({request: req.params.reqId})
+app.get("/api/logs/req/:reqId", (req, res) => {
+  Log.find({requestId: req.params.reqId})
   .then((logs) => {
     res.json(logs);
   })
@@ -77,8 +78,8 @@ app.get("/api/logs/:reqId", (req, res) => {
 });
 
 // receive all logs from db by response id
-app.get("/api/logs/:resId", (req, res) => {
-  Log.find({response: req.params.resId})
+app.get("/api/logs/res/:resId", (req, res) => {
+  Log.find({responseId: req.params.resId})
   .then((logs) => {
     res.json(logs);
   })
@@ -88,7 +89,7 @@ app.get("/api/logs/:resId", (req, res) => {
 });
 
 // receive all logs from db by date
-app.get("/api/logs/:date", (req, res) => {
+app.get("/api/logs/date/:date", (req, res) => {
   Log.find({date: req.params.date})
   .then((logs) => {
     res.json(logs);

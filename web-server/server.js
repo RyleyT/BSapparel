@@ -47,7 +47,7 @@ app.use(cors());
 // app.use(expressValidator());
 
 // app.use(connectFlash()); //Use connect-flash to enable flash messages
-// app.use(addRequestId); //Add request Id
+app.use(addRequestId); //Add request Id
 app.use((req, res, next) => { //Middleware function to pass local variables to views
     // res.locals.flashMessages = req.flash();
     res.locals.currentUser = store.get('user');

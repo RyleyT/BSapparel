@@ -21,8 +21,6 @@ router.get('/', function (req, res) {
   logger.logResponse(log);
 
   res.render('index.html', { title: 'BS Apparel Home' });
-  // router.get('/register', function(req,res) {
-  //   res.render('register.html', {title: 'Register'})
 })
 
 //Info route
@@ -93,19 +91,6 @@ router.post('/login', dataController.login)
 //Logout
 router.get('/logout', dataController.logout);
 
-// router.post('/register', userController.validate, userController.create, userController.redirectView)
-
-// //Login routes
-// router.get('/login', userController.login);
-// router.post('/login', userController.authenticate, userController.redirectView);
-// router.get('/logout', userController.logout);
-
-// //Users routes
-// router.get('/users', userController.index, userController.indexView);
-// router.get('/users/:id', userController.show, userController.showView);
-// router.get('/users/:id/edit', userController.edit);
-// router.put('/users/:id/update', userController.update, userController.redirectView);
-// router.delete('/users/:id/delete', userController.delete, userController.redirectView);
 
 //Profile routes
 router.get('/profile', function (req, res) {

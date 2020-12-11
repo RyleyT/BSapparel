@@ -2,9 +2,20 @@ const fetch = require('node-fetch');
 const decoder = require('jwt-decode');
 const store = require('store');
 const passport = require("passport");
+const logger = require("./logController")
 
 module.exports = {
     register: async (req, res) => {
+            // Log response with log-service
+        let log = {
+        service: "Client",
+        route: "/register",
+        requestId: res.getHeader(`x-request-id`),
+        message: "requesting to add new client to user service",
+        date: Date.now
+      }
+      // Send log to log controller
+      logger.logResponse(log);
         await fetch('http://localhost:4000/api/user', {
             method: 'POST',
             headers: { "content-type": 'application/json' },
@@ -22,6 +33,16 @@ module.exports = {
 
     login: async (req, res) => {
         console.dir(req.body);
+            // Log response with log-service
+        let log = {
+        service: "Client",
+        route: "/register",
+        requestId: res.getHeader(`x-request-id`),
+        message: "requesting to add new client to user service",
+        date: Date.now
+      }
+      // Send log to log controller
+      logger.logResponse(log);
         await fetch('http://localhost:4000/api/user/login', {
             method: 'POST',
             headers: { "content-type": 'application/json' },
@@ -51,6 +72,16 @@ module.exports = {
 
     edit: async (req, res) => {
         console.log(req.body);
+            // Log response with log-service
+        let log = {
+        service: "Client",
+        route: "/register",
+        requestId: res.getHeader(`x-request-id`),
+        message: "requesting to add new client to user service",
+        date: Date.now
+      }
+      // Send log to log controller
+      logger.logResponse(log);
         var userId = store.get('user').userId;
         await fetch(`http://localhost:4000/api/user/${userId}`, {
             method: 'PUT',
@@ -69,6 +100,16 @@ module.exports = {
 
     search: async (req, res) => {
         console.log(req.body);
+            // Log response with log-service
+        let log = {
+        service: "Client",
+        route: "/register",
+        requestId: res.getHeader(`x-request-id`),
+        message: "requesting to add new client to user service",
+        date: Date.now
+      }
+      // Send log to log controller
+      logger.logResponse(log);
         await fetch(`http://localhost:4000/api/search/${req.body.searchBox}`, {
             method: 'GET',
             headers: { "content-type": 'application/json' },
