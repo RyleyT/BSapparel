@@ -205,14 +205,15 @@ app
             });
     });
 
-app.get('/api/items/search', function (req, res, next) {
-    var query = String(req.originalUrl);
-    query = query.substring(29); // Remove the path /api/items/search/?searchBox=
-    query = query.replace("+", " "); // if they search for something with a space the url is appended with + so remove that
+app.get('/api/search/:searchBox', function (req, res, next) {
+    // var query = String(req.originalUrl);
+    // query = query.substring(29); // Remove the path /api/items/search/?searchBox=
+    // query = query.replace("+", " "); // if they search for something with a space the url is appended with + so remove that
 
     //var response = "<form action= \"http://localhost:7000/api/orders\" method=\"GET\" id=\"myform\"</form><table style=\"width:75%\"><th style=\"text-align:left\">Item</th><th style=\"text-align:left\">Price</th><th style=\"text-align:left\">Description</th></th><th style=\"text-align:left\">Purchase</th>";
+    console.log(req.body);
 
-    Item.find({ title: query })
+    Item.find( {title: req.params.searchBox} )
         .then((items) => {
             if (items) {
                 // Log response with log-service
@@ -229,7 +230,8 @@ app.get('/api/items/search', function (req, res, next) {
                 //     response += `<tr> <td>${indivItem.title}</td> <td>$${indivItem.price}</td> <td>${indivItem.description}</td><td><button type=\"button\" form=\"myform\">Purchase</button></tr>`;
                 // });
                 // response += '</table>'
-                res.send(items/*response*/);
+                console.log(items);
+                res.json(items);             
             }
             else {
                 // Log response with log-service

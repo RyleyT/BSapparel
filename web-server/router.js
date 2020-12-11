@@ -1,3 +1,6 @@
+const { data } = require('jquery');
+const dataController = require('./controllers/dataController');
+
 const express = require('express'),
   router = express.Router(),
   ///TEMP DATABASE ACCESS
@@ -54,7 +57,7 @@ router
 
     res.render('register.html', { title: 'Register' })
   })
-  .post('/register', /*userController.create,*/ function (req, res) {
+  .post('/register', dataController.register, function (req, res) {
     // Log response with log-service
     let log = {
       service: "Client",
@@ -65,11 +68,11 @@ router
     }
     // Send log to log controller
     logger.logResponse(log);
-
     // after the user registers send them to the profile page
-    res.render('/profile.html', { title: 'View Profile' })
+    res.render('profile.ejs', { title: 'View Profile' })
   });
 
+//Login
 router.get('/login', function (req, res) {
   // Log response with log-service
   let log = {
@@ -84,6 +87,12 @@ router.get('/login', function (req, res) {
 
   res.render('login.html', { title: 'Login' })
 })
+
+router.post('/login', dataController.login)
+
+//Logout
+router.get('/logout', dataController.logout);
+
 // router.post('/register', userController.validate, userController.create, userController.redirectView)
 
 // //Login routes
@@ -114,6 +123,11 @@ router.get('/profile', function (req, res) {
   res.render('profile.ejs')
 })
 
+router.get('/edit', function(req, res) { 
+  res.render('edit.ejs') 
+}).post('/edit', dataController.edit);
+
+//Search
 router.get('/search', function (req, res) {
   // Log response with log-service
   let log = {
@@ -126,7 +140,9 @@ router.get('/search', function (req, res) {
   // Send log to log controller
   logger.logResponse(log);
 
-  res.render('search.html', { title: 'Item Search' })
-})
+  res.render('search.ejs', { title: 'Item Search' })
+}).post('/search', dataController.search)
+
+// router.post('/search', dataController.purchase);
 
 module.exports = router;

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    
+    <h1>Welcome to the inventory search page!</h1>
+    <div id="search__container">
+        <div id="search">
+            <p>Please enter the name of the item you are searching for.</p>
+        </div>
+
+        <form id="search__form" action="/search" method="POST">
+            <label for="SearchCriteria"><b>Search</b></label>
+            <input type="text" placeholder="Ex.) T-Shirt" name="searchBox" id="searchBox" required>
+
+            <button type="submit">Search</button>
+        </form>
+
+        <ul id="search__list"></ul>
+    
+    </div>
+    <!-- <form action= "/search" method="POST" id="myform"></form> -->
+    <% if(items) { %>
+        <table style="width:75%">
+            <th style="text-align:left">Item</th>
+            <th style="text-align:left">Price</th>
+            <th style="text-align:left">Description</th>
+            <th style="text-align:left">Purchase</th>
+        <% items.forEach(item => { %>
+            <tr>
+                <td>
+                    <%= item.title %>
+                </td>
+                <td>
+                    <%= item.description %>
+                </td>
+                <td>
+                    <%= item.price %>
+                </td>  
+                <td>
+                    <input type="checkbox" onchange="toggleCheckbox(this)">
+                </td>              
+            </tr>
+        <% }); %>     
+    </table> 
+    <% } %>
+    <form id="purchase__form" action="/search" method="GET">
+        <button type="submit">Purchase</button>
+    </form>
+</body>
+
+<!-- <script>
+    var checks;
+    function toggleCheckbox(element) {
+      checks.add(element);
+      console.log(checks);
+    }
+</script> -->
+
+</html>

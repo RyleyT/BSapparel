@@ -9,7 +9,9 @@ const express = require('express'),
     passport = require("passport"),
     connectFlash = require('connect-flash'),
     methodOverride = require('method-override'),
-    addRequestId = require('express-request-id')();  
+    addRequestId = require('express-request-id')(),
+    store = require('store');  
+
 
 let app = express();
 app.use(methodOverride("_method", { methods: ["POST", "GET"] }));
@@ -27,7 +29,7 @@ app.use(express.json());
 app.use(cors());
 
 
-///Sessions and cookies added here
+// ///Sessions and cookies added here
 // app.use(cookieParser("secret_passcode"));
 // app.use(expressSession({
 //   secret: "secret_passcode",
@@ -44,21 +46,27 @@ app.use(cors());
 // passport.deserializeUser(User.deserializeUser());
 // app.use(expressValidator());
 
-app.use(connectFlash()); //Use connect-flash to enable flash messages
-app.use(addRequestId); //Add request Id
-// app.use((req, res, next) => { //Middleware function to pass local variables to views
-//   // res.locals.flashMessages = req.flash();
-//   res.locals.loggedIn = req.isAuthenticated();
-//   res.locals.currentUser = req.user;
-//   next();
-// });
+// app.use(connectFlash()); //Use connect-flash to enable flash messages
+// app.use(addRequestId); //Add request Id
+app.use((req, res, next) => { //Middleware function to pass local variables to views
+    // res.locals.flashMessages = req.flash();
+    res.locals.currentUser = store.get('user');
+    res.locals.loggedIn = store.get('loggedIn');
+    res.locals.items = store.get('items')
+    console.log(typeof(res.locals.loggedIn))
+    console.log(res.locals.loggedIn);
+    console.log(res.locals.items);
+    // console.dir(res.locals.currentUser);
+    // console.log("---");
+    next();
+  });
 
-//Routes
+  //Routes
 app.use('/', router);
 app.use('/info', router);
 app.use('/register', router);
 app.use('/login', router);
-app.use('/users', router)
+app.use('/logout', router);
 app.use('/profile', router);
 app.use('/edit', router);
 app.use('/search', router);

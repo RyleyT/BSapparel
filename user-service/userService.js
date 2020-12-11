@@ -21,7 +21,7 @@ server = http.createServer(function (req, res) {
 
 const User = require("./models/user");
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryleyt:1qaz@cluster0.h0wyn.mongodb.net/<dbname>?retryWrites=true&w=majority", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryleyt:1qaz@cluster0.h0wyn.mongodb.net/BSapparel?retryWrites=true&w=majority", {
     useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -247,7 +247,9 @@ app.post("/api/user/login", (req, res) => {
                         const token = jwt.sign({
                             email: user[0].email,
                             userId: user[0]._id,
-                            username: user[0].username
+                            username: user[0].username,
+                            address: user[0].address,
+                            name: user[0].name
                         },
                             "thisI$th3$3cretSTRING",
                             {

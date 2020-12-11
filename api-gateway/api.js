@@ -25,7 +25,6 @@ app.use((req, res, next) => {
 //   next();
 // });
 
-
 app.use('/api/user', createProxyMiddleware({
   target: 'http://localhost:5000/',
   headers: {
@@ -43,6 +42,16 @@ app.use('/api/items', createProxyMiddleware({
   },
   changeOrigin: true 
 }));
+
+app.use('/api/search', createProxyMiddleware({
+  target: 'http://localhost:6000/',
+  headers: {
+    accept: "application/json",
+    method: "GET"
+  },
+  changeOrigin: true 
+}));
+
 
 app.use('/api/orders', createProxyMiddleware({
   target: 'http://localhost:7000/',

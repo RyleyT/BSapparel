@@ -8,24 +8,26 @@
     <body>
         <h1>View Profile</h1> 
         <div id ="Profile"></div>
-        <form action= "/edit" method="GET">
-            <label for="username"><b>Username</b></label>
-            <p>Username</p></br>
-
-            <label for="password"><b>Password</b></label>
-            <p>Hidden</p></br>
-
-            </b><label for="email"><b>Email</b></label>
-            <p>Email123@gmail.com</p></br>
-
-            <label for="address"><b>Address</b></label>
-            <p>123 Fake Street</p></br>
-
-            <label for="name"><b>Name</b></label>
-            <p>John Doe</p></br>
-
-            <button type="submit">Edit</button>
-        </form>
+        <% if(!loggedIn) { %>
+            <h1>User is not logged in</h1>
+        <% } else { %>
+            <form action= "/edit" method="GET">
+                <label for="username"><b>Username </b></label>
+                <p><%= currentUser.username %></p></br>
+                
+                </b><label for="email"><b>Email</b></label>
+                <p><%= currentUser.email %></p></br>
+    
+                <label for="address"><b>Address</b></label>
+                <p><%= currentUser.address %></p></br>
+    
+                <label for="name"><b>Name</b></label>
+                <p><%= currentUser.name %></p></br>
+    
+                <button type="submit">Edit</button>
+            </form>
+        <% } %>
+        
     </body>
     
 </html>
